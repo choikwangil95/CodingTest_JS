@@ -1,0 +1,48 @@
+```javascript
+function solution(board, moves) {
+    
+    let stackList = [];
+    let list = [];
+    let result = [];
+    let k=0;
+    let answer = 0;
+    
+    for (let j=0; j<board.length; j++){
+        for(let i=board.length-1; i>=0; i--){
+            if(board[i][j] != 0){
+                list[k] = board[i][j];
+                k++;
+            }
+        }   
+        stackList.push(list);
+        list = [];
+        k=0;
+    }
+    
+    for (let h=0; h<moves.length; h++){
+        if (stackList[moves[h]-1].length > 0){
+            let listPick = stackList[moves[h]-1].pop();    
+            
+            if (result.length > 0){
+                let resultTop = result.pop();
+
+                if (listPick != resultTop){
+                    result.push(resultTop);
+                    result.push(listPick);
+                }
+                else{
+                    answer += 1;
+                }
+            }else{
+                result.push(listPick);    
+            }
+        }else{
+            continue;
+        }
+    }
+    
+    answer *= 2;
+
+    return answer;
+}
+```
